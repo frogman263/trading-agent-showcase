@@ -1,6 +1,6 @@
 # Autonomous AI Trading Agent
 
-**Claude Code + Robinhood MCP + GitHub Actions**
+**Claude Code + Robinhood MCP + Claude Routines**
 
 An autonomous trading agent built on Anthropic's Claude Code, connected to Robinhood via the Model Context Protocol (MCP). Executes a daily AI infrastructure investment strategy across 14 positions, runs on a cloud schedule, and logs every session to this repo.
 
