@@ -128,24 +128,72 @@ MAG8 hyperscaler CAPEX is a structural, multi-year tailwind for AI chips, memory
 
 ---
 
-## Current State
+## Current State (as of June 18, 2026)
 
-Account value: [your funded amount]
-Positions: [number of positions held]
-Build phase: [days 1-5 initial deployment] → Rebalance phase: [ongoing]
+Account value: ~$7,500–8,000 (post-transfer from Grok account)
+14 positions held. Build phase transitioning to rebalance phase.
 
 ### Known Overweight — Priority Action
-**NVDA is currently overweight** — trim gradually toward 20% target, ≤$[YOUR_NVDA_TRIM_LIMIT]/session.
+**NVDA is currently ~34% of account** — significantly above the 20% target and 25% max. 
+- Trim NVDA gradually toward 25% max, then 20% target over multiple sessions
+- Do not sell more than $500 of NVDA per session to minimize market impact and tax drag
+- Use proceeds to build underweight Tier 3 positions
 
 ### Known Underweight — Build Priority
-- Tier 3 (IREN, APLD, CORZ, CRWV): below target — build toward 15–20%
-- Tier 2 (CEG, VST, BE, GEV): below target — top up toward 20–28%
+- Tier 3 (IREN, APLD, CORZ, CRWV): currently ~2% combined, target 15–20%
+- Tier 2 (CEG, VST, BE, GEV): currently ~17%, target 20–28%
+- Tier 4 (ASML, NBIS, RIOT): partially held, top up toward targets
 
-### Pending Actions (next trading session)
-1. Trim NVDA toward 25% max
+### Pending Actions (Monday June 23 open)
+1. Trim NVDA toward 25% max (sell up to $500)
 2. Deploy proceeds into underweight Tier 3 names
 3. Top up Tier 2 toward targets
-4. Screen AMD, AMAT, MRVL, VRT for Tier 4 entry
+4. Screen AMD, AMAT, MRVL, VRT for Tier 4 entry (check 5-day move rule first)
+
+---
+
+
+## Thesis Review & Universe Management
+
+### Weekly Review (every Monday session)
+In addition to the standard daily run, every Monday evaluate:
+
+1. **Hyperscaler CAPEX signals** — scan for any news indicating a slowdown, pause, or acceleration in AI infrastructure spending by Microsoft, Google, Amazon, Meta, Oracle. A confirmed spending slowdown is a red flag for the entire thesis. Flag immediately for user review.
+
+2. **Position thesis check** — for each held position, confirm the AI infrastructure thesis still applies:
+   - Has the company's core business shifted away from AI/chips/power/data centers?
+   - Has a major contract been cancelled or a key partnership dissolved?
+   - Has the competitive moat weakened (e.g., a credible NVDA alternative emerges)?
+   - If yes to any: flag for user review, do not sell unilaterally
+
+3. **Universe opportunity scan** — identify any stocks not currently in the universe that have:
+   - Signed a hyperscaler AI contract (Microsoft, Google, Amazon, Meta, Oracle, CoreWeave)
+   - Direct exposure to AI chip supply chain, power infrastructure, or data center buildout
+   - Market cap > $1B and liquid enough for fractional trading
+   - Flag these as **"Potential Universe Additions"** in the session log — do not buy without user confirmation
+
+4. **Universe removal candidates** — flag any held position where:
+   - The company has pivoted away from AI infrastructure
+   - A thesis-breaking event has occurred (major contract loss, regulatory block, bankruptcy risk)
+   - The 5-day price move suggests a sector-specific problem, not a broad market move
+   - Flag as **"Potential Universe Removal"** — do not sell without user confirmation
+
+### Monthly Review (first Monday of each month)
+Produce an extended session summary covering:
+- Full portfolio performance vs S&P 500 and QQQ since inception
+- Each position's thesis status (intact / weakening / broken)
+- Tier allocation drift from targets over the month
+- Any macro signals affecting the AI infrastructure thesis
+- Recommended universe changes for user approval
+- Position sizing adjustments as account grows
+
+### Macro Red Flags — Pause All New Buying If:
+- Two or more hyperscalers announce CAPEX cuts in the same quarter
+- NVDA guidance misses by >10% and cites demand slowdown (not supply)
+- Federal Reserve signals aggressive rate hikes that historically compress growth multiples
+- A credible AI compute alternative to NVDA captures >10% market share
+
+These don't trigger sells — they trigger a pause on new purchases and a flag to the user.
 
 ---
 
@@ -162,7 +210,7 @@ Add to an existing position when:
 - Position is not at max allocation
 - Cash reserve stays ≥ 5% after the trade
 
-Minimum trade size: $[YOUR_MIN_TRADE_SIZE].
+Minimum trade size: $25.
 
 ---
 
@@ -170,7 +218,7 @@ Minimum trade size: $[YOUR_MIN_TRADE_SIZE].
 
 Trim a position when:
 - It exceeds max allocation by ≥ 3% — trim back toward max
-- Exception: trim NVDA from current ~34% toward 25% max gradually (≤$[YOUR_NVDA_TRIM_LIMIT]/session)
+- Exception: trim NVDA from current ~34% toward 25% max gradually (≤$500/session)
 
 Full exit requires explicit user instruction except:
 - Stock is acquired, delisted, or fundamentally leaves the thesis
@@ -205,9 +253,9 @@ Earnings are opportunities, not blackouts.
 
 - Trigger: any position drifts ≥ 5% from target weight
 - Method: sell overweight first, buy underweight same session where possible
-- Minimum rebalance trade: $[YOUR_MIN_TRADE_SIZE]
+- Minimum rebalance trade: $25
 - Max trades per session: 10
-- Max single-session cash deployment: 50% of available cash (configurable)
+- Max single-session cash deployment: 50% of available cash
 
 ---
 
@@ -215,9 +263,11 @@ Earnings are opportunities, not blackouts.
 
 | Rule | Limit |
 |------|-------|
-| Drawdown pause | -20% from all-time high (approximately 20% of account value) → stop all trading |
+| Drawdown tier 1 | -10% from high-water mark → reduce max session deployment to 25% of cash |
+| Drawdown tier 2 | -15% from high-water mark → pause all new buys, trims only |
+| Drawdown tier 3 | -20% from high-water mark → full stop, no trades, notify user, manual reset required |
 | Max trades/day | 10 |
-| Max cash deployed/day | 50% of available cash (configurable) |
+| Max cash deployed/day | 50% of available cash |
 | Max NVDA trim/day | $500 — do not dump in one session |
 | Margin | Never use |
 | Options | Not permitted |
@@ -225,10 +275,37 @@ Earnings are opportunities, not blackouts.
 
 ---
 
+## Validator & State Management
+
+### validator.py
+A deterministic Python script that enforces all rules in code before any trade reaches Robinhood. Located at `~/trading-agent/validator.py`.
+
+Run on every session. If it returns FAIL, no trades execute regardless of Claude's reasoning.
+
+### state.json
+A persistent JSON file (`~/trading-agent/state.json`) that tracks session-to-session state. Claude reads this at the start of every run and updates it after.
+
+Key fields:
+- `account_number` — verified against Agentic account on every run
+- `account_value` — updated from live MCP data each session
+- `buying_power` — updated from live MCP data each session
+- `positions` — current dollar value and percentage per holding
+- `high_water_mark` — highest account value ever recorded; used for drawdown calculation
+- `trades_today` — resets each new calendar day
+- `last_trade_date` — used to detect day rollover
+- `build_phase` — current build schedule status
+
+**Do not manually edit state.json unless explicitly instructed by user.**
+
+### proposals.json
+A temporary file written by Claude before each execution step. Contains all proposed trades in structured JSON format. Read by the validator before any order is placed. Overwritten each session.
+
+---
+
 ## What Claude Can Do Without Asking
 
 - Buy/sell within approved universe within all rules
-- Trim NVDA gradually toward 25% max (≤$[YOUR_NVDA_TRIM_LIMIT]/session)
+- Trim NVDA gradually toward 25% max (≤$500/session)
 - Rebalance drifted positions
 - Act on earnings setups per the Earnings Rule
 - Write session logs and send notifications
@@ -239,7 +316,7 @@ Earnings are opportunities, not blackouts.
 - Full exit of any position
 - Resuming after a drawdown pause
 - Changing target allocations
-- Any single trade > $[YOUR_CONFIRMATION_THRESHOLD]
+- Any single trade > $750
 
 ---
 
@@ -251,7 +328,7 @@ Earnings are opportunities, not blackouts.
 - [ ] Trade is within approved universe
 - [ ] Position will not exceed max allocation
 - [ ] Cash reserve stays ≥ 5%
-- [ ] Trade size ≥ $[YOUR_MIN_TRADE_SIZE]
+- [ ] Trade size ≥ $25
 - [ ] Earnings rule checked if applicable
 - [ ] NVDA trim ≤ $500 if trimming NVDA
 
@@ -287,11 +364,11 @@ Earnings are opportunities, not blackouts.
 ## Version History
 | Version | Date | Notes |
 |---------|------|-------|
-| 1.0 | 2026-06-17 | Initial draft — 3-tier universe, 7 positions |
-| 1.1 | 2026-06-17 | Earnings as opportunity; build order established; drawdown pause confirmed |
-| 1.2 | 2026-06-17 | Day 1 build order: Tier 1 first, Tier 2 Day 2, Tier 3 Days 3–5 |
-| 1.3 | 2026-06-18 | Initial funding and staged deployment activated |
-| 1.4 | 2026-06-18 | Platform notes: Cowork vs Claude Code vs chat execution paths documented |
-| 2.0 | 2026-06-18 | Major rewrite: expanded to 4-tier structure, 14 positions; NVDA overweight logic added |
-| 2.1 | 2026-06-18 | Added Thesis Review: weekly Monday review, monthly extended summary, universe management, macro red flags |
-| 2.2 | 2026-06-21 | Added GitHub logging via REST API for both local and cloud Routine runs |
+| 1.0 | 2026-06-17 | Initial draft |
+| 1.1 | 2026-06-17 | Earnings as opportunity; $1K threshold; $7-8K funding; BE note |
+| 1.2 | 2026-06-17 | Day 1 build order; -20% drawdown confirmed |
+| 1.3 | 2026-06-18 | Funded $5K; $500 threshold; drawdown ~$1K |
+| 1.4 | 2026-06-18 | Platform notes; Cowork limitation; Claude Code path |
+| 2.0 | 2026-06-18 | Major rewrite: Grok transfer complete; 14 positions; 4-tier structure; NVDA overweight flag; account ~$7.5-8K; $750 confirmation threshold |
+| 2.1 | 2026-06-18 | Added Thesis Review section: weekly Monday review, monthly extended summary, universe management criteria, macro red flags |
+| 2.2 | 2026-06-21 | Added GitHub logging via REST API for both local and cloud runs; repo YOUR_GITHUB_USERNAME/trading-agent/logs/ |
