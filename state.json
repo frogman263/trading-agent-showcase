@@ -22,5 +22,6 @@
   "last_trade_date": null,
   "last_updated": null,
   "build_phase": "Day 1",
-  "notes": "Initialize this file after your first session. The agent updates it automatically."
+  "notes": "Initialize this file after your first session. The agent updates it automatically.",
+  "schema_version": "1.0"
 }
