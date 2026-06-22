@@ -20,6 +20,7 @@
   "high_water_mark": 0,
   "trades_today": 0,
   "last_trade_date": null,
+  "last_updated": null,
   "build_phase": "Day 1",
-  "notes": "Initialize this file after your first session. The agent will update it automatically."
+  "notes": "Initialize this file after your first session. The agent updates it automatically."
 }
