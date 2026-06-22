@@ -32,7 +32,7 @@ MAG8 hyperscaler CAPEX is a structural, multi-year tailwind for AI chips, memory
 
 ---
 
-## Universe (17 stocks, 4 tiers)
+## Universe (18 stocks, 4 tiers)
 
 | Tier | Focus | Holdings |
 |------|-------|---------|
@@ -48,7 +48,7 @@ MAG8 hyperscaler CAPEX is a structural, multi-year tailwind for AI chips, memory
 Every weekday at 11 AM ET the agent wakes up automatically and:
 
 1. Checks if market is open (handles holidays automatically)
-2. Pulls live account state and quotes for all 17 universe stocks
+2. Pulls live account state and quotes for all 18 universe stocks
 3. Checks drawdown — pauses all trading if down 20% from high-water mark
 4. Evaluates each position against target allocations
 5. Applies the Earnings Rule (opportunity-based, not blackout-based)

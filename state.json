@@ -1,0 +1,25 @@
+{
+  "_readme": "Copy this file to ~/trading-agent/state.json and populate with your actual values after first session.",
+  "account_number": "YOUR_ROBINHOOD_AGENTIC_ACCOUNT_NUMBER",
+  "account_value": 0,
+  "buying_power": 0,
+  "positions": {
+    "NVDA": {
+      "value": 0,
+      "pct": 0
+    },
+    "AVGO": {
+      "value": 0,
+      "pct": 0
+    },
+    "MU": {
+      "value": 0,
+      "pct": 0
+    }
+  },
+  "high_water_mark": 0,
+  "trades_today": 0,
+  "last_trade_date": null,
+  "build_phase": "Day 1",
+  "notes": "Initialize this file after your first session. The agent will update it automatically."
+}
