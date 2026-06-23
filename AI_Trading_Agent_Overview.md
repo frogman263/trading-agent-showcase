@@ -61,7 +61,7 @@ Be honest with yourself on these. You don't need to be a developer but you need 
 3. Claude connects to Robinhood via MCP (a secure API bridge)
 4. Claude analyzes your portfolio, pulls live quotes, and checks rules
 5. Claude executes trades within your defined guardrails
-6. Claude sends a push notification summary to your phone
+6. Claude sends a Pushover notification summary to your phone
 7. Repeat daily — automatically, no input needed
 
 ---
@@ -112,9 +112,6 @@ The strategy isn't dictated top-down. It's built through a back-and-forth conver
 
 **If you want a starting point:**
 The full strategy used to build this system — including the thesis, universe, rules, risk limits, and red flags — is publicly documented at github.com/frogman263/trading-agent-showcase. Use it as a reference, adapt it to your own thesis, or build something entirely different.
-
----
-
 
 ---
 

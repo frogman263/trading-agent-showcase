@@ -211,11 +211,11 @@ Read CLAUDE.md in my trading-agent folder and execute the
 daily trading review for my Robinhood Agentic account. 
 Follow all rules in CLAUDE.md exactly.
 ```
-3. Set the schedule — **10:00 AM ET daily, weekdays only** is recommended (30 minutes after market open gives time for price discovery)
+3. Set the schedule — **11:00 AM ET daily, weekdays only** is recommended (90 minutes after market open gives time for price discovery)
 4. Confirm Robinhood is listed under MCP Connections
 5. Save the Routine
 
-The agent will now run automatically every market day. You'll receive a push notification on your phone after each session summarizing what happened.
+The agent will now run automatically every market day. You'll receive a Pushover notification on your phone after each session summarizing what happened — including validator status, trades executed, account value, and any flagged items.
 
 > **Note:** The Routine runs in Anthropic's cloud — your computer does not need to be on.
 
@@ -224,7 +224,7 @@ The agent will now run automatically every market day. You'll receive a push not
 ## Phase 7 — Ongoing Management
 
 ### What to Do Daily
-- Check your push notification after 10 AM ET
+- Check your Pushover notification after 11 AM ET
 - Review any flagged items the agent raised for your attention
 - No action needed if everything ran normally
 

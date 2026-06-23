@@ -93,17 +93,19 @@ A persistent JSON file that carries account state between sessions. Without this
 ```json
 {
   "account_number": "YOUR_ROBINHOOD_AGENTIC_ACCOUNT_NUMBER",
-  "account_value": 7751.38,
-  "buying_power": 1250.00,
+  "account_value": 0,
+  "buying_power": 0,
   "positions": {
-    "NVDA": {"value": 2662.90, "pct": 0.344},
-    "AVGO": {"value": 856.25, "pct": 0.110}
+    "NVDA": {"value": 0, "pct": 0},
+    "AVGO": {"value": 0, "pct": 0}
   },
-  "high_water_mark": 7751.38,
+  "high_water_mark": 0,
   "trades_today": 0,
-  "last_trade_date": "2026-06-22",
-  "build_phase": "Day 3",
-  "notes": "Human-readable session notes"
+  "last_trade_date": null,
+  "last_updated": null,
+  "schema_version": "1.0",
+  "build_phase": "Day 1",
+  "notes": "Initialize after first session. Agent updates automatically."
 }
 ```
 
@@ -111,6 +113,8 @@ A persistent JSON file that carries account state between sessions. Without this
 - `high_water_mark` — highest account value ever recorded. Used to calculate drawdown percentage. Never decreases.
 - `trades_today` — resets automatically when `last_trade_date` rolls to a new calendar day.
 - `positions` — stores both dollar value and percentage for each holding. Updated after every session.
+- `last_updated` — ET timestamp of the last state write. Used for auditing.
+- `schema_version` — tracks the state file format version for future compatibility.
 
 **In the cloud Routine:** state.json lives in the private GitHub repo. The Routine fetches it at session start, injects live MCP data, runs validation, then pushes the updated file back to GitHub after execution. This gives you a version-controlled history of account state.
 
